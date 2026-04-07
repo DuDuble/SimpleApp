@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/stage/Desktop/SimpleApp/build/Debug/cmake_install.cmake",
+		"/home/stage/Desktop/SimpleApp/build/Debug/cmake/stm32cubemx/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

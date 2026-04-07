@@ -1,0 +1,6 @@
+/home/stage/Desktop/SimpleApp/build/Debug/CMakeFiles/SimpleApp.dir
+/home/stage/Desktop/SimpleApp/build/Debug/CMakeFiles/edit_cache.dir
+/home/stage/Desktop/SimpleApp/build/Debug/CMakeFiles/rebuild_cache.dir
+/home/stage/Desktop/SimpleApp/build/Debug/cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir
+/home/stage/Desktop/SimpleApp/build/Debug/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
+/home/stage/Desktop/SimpleApp/build/Debug/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir
