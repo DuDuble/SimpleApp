@@ -48,6 +48,11 @@ add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
         $<TARGET_FILE:${CMAKE_PROJECT_NAME}>
         ${CMAKE_PROJECT_NAME}.bin
     COMMENT "Generating .bin file"
+
+    COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/hash.py 
+        $<TARGET_FILE:${CMAKE_PROJECT_NAME}>
+        ${CMAKE_PROJECT_NAME}.bin
+    
 )
 
 # Add STM32CubeMX generated sources
