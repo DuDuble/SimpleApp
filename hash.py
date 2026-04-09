@@ -12,12 +12,9 @@ HEADER_SECTION = '.fw_header'  # sezione ELF header
 
 bin_size = os.path.getsize(BIN_FILE)
 
-print("SIZE DEL BIN " + str(bin_size))
-
 with open(BIN_FILE, 'rb') as b:   
     sha256 = hashlib.sha256(b.read()).digest()
 
-print("HASH : " + str(sha256.hex()))
 
  # ensuring files or connections close safely even if errors occur
 with open(ELF_FILE, 'rb') as f:
@@ -27,13 +24,8 @@ with open(ELF_FILE, 'rb') as f:
     # mi dice dove cominciano i dati 
     offset = section['sh_offset']
     size = section['sh_size']
-
-    print("Offset : " + str(offset))
-    print("Size : " + str(size))
     f.seek(offset)
     raw = f.read(size)
-
-print("RAW:", [hex(b) for b in raw])
 
 raw = bytearray(raw)
 bin_size_bytes = bin_size.to_bytes(4,'little')
