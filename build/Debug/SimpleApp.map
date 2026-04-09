@@ -2575,7 +2575,8 @@ Memory Configuration
 
 Name             Origin             Length             Attributes
 RAM              0x20000000         0x00050000         xrw
-FLASH            0x08008000         0x00010000         xr
+FLASH            0x08008000         0x00012000         xr
+HEADER           0x0801a000         0x00000200         rw
 *default*        0x00000000         0xffffffff
 
 Linker script and memory map
@@ -3030,63 +3031,60 @@ LOAD /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/
 .iplt           0x0800b5b4        0x0
  .iplt          0x0800b5b4        0x0 /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.rodata         0x0800b5b4       0x34
+.rodata         0x0800b5b4       0x30
                 0x0800b5b4                        . = ALIGN (0x4)
  *(.rodata)
- .rodata        0x0800b5b4       0x1b CMakeFiles/SimpleApp.dir/Core/Src/main.c.obj
+ .rodata        0x0800b5b4       0x16 CMakeFiles/SimpleApp.dir/Core/Src/main.c.obj
  *(.rodata*)
- *fill*         0x0800b5cf        0x1 
+ *fill*         0x0800b5ca        0x2 
  .rodata.AHBPrescTable
-                0x0800b5d0       0x10 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f7xx.c.obj
-                0x0800b5d0                AHBPrescTable
+                0x0800b5cc       0x10 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f7xx.c.obj
+                0x0800b5cc                AHBPrescTable
  .rodata.APBPrescTable
-                0x0800b5e0        0x8 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f7xx.c.obj
-                0x0800b5e0                APBPrescTable
-                0x0800b5e8                        . = ALIGN (0x4)
+                0x0800b5dc        0x8 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f7xx.c.obj
+                0x0800b5dc                APBPrescTable
+                0x0800b5e4                        . = ALIGN (0x4)
 
-.ARM.extab      0x0800b5e8        0x0
-                0x0800b5e8                        . = ALIGN (0x4)
+.ARM.extab      0x0800b5e4        0x0
+                0x0800b5e4                        . = ALIGN (0x4)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0800b5e8                        . = ALIGN (0x4)
+                0x0800b5e4                        . = ALIGN (0x4)
 
-.ARM            0x0800b5e8        0x8
-                0x0800b5e8                        . = ALIGN (0x4)
-                0x0800b5e8                        __exidx_start = .
+.ARM            0x0800b5e4        0x8
+                0x0800b5e4                        . = ALIGN (0x4)
+                0x0800b5e4                        __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x0800b5e8        0x8 /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/libgcc.a(_udivmoddi4.o)
-                0x0800b5f0                        __exidx_end = .
-                0x0800b5f0                        . = ALIGN (0x4)
+ .ARM.exidx     0x0800b5e4        0x8 /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/libgcc.a(_udivmoddi4.o)
+                0x0800b5ec                        __exidx_end = .
+                0x0800b5ec                        . = ALIGN (0x4)
 
-.preinit_array  0x0800b5f0        0x0
-                0x0800b5f0                        . = ALIGN (0x4)
-                0x0800b5f0                        PROVIDE (__preinit_array_start = .)
+.preinit_array  0x0800b5ec        0x0
+                0x0800b5ec                        . = ALIGN (0x4)
+                0x0800b5ec                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x0800b5f0                        PROVIDE (__preinit_array_end = .)
-                0x0800b5f0                        . = ALIGN (0x4)
+                0x0800b5ec                        PROVIDE (__preinit_array_end = .)
+                0x0800b5ec                        . = ALIGN (0x4)
 
-.init_array     0x0800b5f0        0x4
-                0x0800b5f0                        . = ALIGN (0x4)
-                0x0800b5f0                        PROVIDE (__init_array_start = .)
+.init_array     0x0800b5ec        0x4
+                0x0800b5ec                        . = ALIGN (0x4)
+                0x0800b5ec                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x0800b5f0        0x4 /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
-                0x0800b5f4                        PROVIDE (__init_array_end = .)
-                0x0800b5f4                        . = ALIGN (0x4)
+ .init_array    0x0800b5ec        0x4 /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+                0x0800b5f0                        PROVIDE (__init_array_end = .)
+                0x0800b5f0                        . = ALIGN (0x4)
 
-.fini_array     0x0800b5f4        0x4
-                0x0800b5f4                        . = ALIGN (0x4)
+.fini_array     0x0800b5f0        0x4
+                0x0800b5f0                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x0800b5f4        0x4 /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+ .fini_array    0x0800b5f0        0x4 /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x0800b5f8                        . = ALIGN (0x4)
-                0x0800b5f8                        _sidata = LOADADDR (.data)
+                0x0800b5f4                        . = ALIGN (0x4)
+                0x0800b5f4                        _sidata = LOADADDR (.data)
 
-.rel.dyn        0x0800b5f8        0x0
- .rel.iplt      0x0800b5f8        0x0 /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
-
-.data           0x20000000       0x68 load address 0x0800b5f8
+.data           0x20000000       0x68 load address 0x0800b5f4
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _sdata = .
  *(.data)
@@ -3112,11 +3110,18 @@ LOAD /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/
  *(.RamFunc)
  *(.RamFunc*)
                 0x20000068                        . = ALIGN (0x4)
+                0x00012000                        _fsize = LENGTH (FLASH)
 
-.igot.plt       0x20000068        0x0 load address 0x0800b660
+.igot.plt       0x20000068        0x0 load address 0x0800b65c
  .igot.plt      0x20000068        0x0 /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.tdata          0x20000068        0x0 load address 0x0800b660
+.fw_header      0x0801a000        0x4
+                0x0801a000        0x4 LONG 0x12000 _fsize
+
+.rel.dyn        0x0801a004        0x0
+ .rel.iplt      0x0801a004        0x0 /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+
+.tdata          0x20000068        0x0 load address 0x0800b65c
  *(.tdata .tdata.* .gnu.linkonce.td.*)
                 0x20000068                        . = ALIGN (0x4)
                 0x20000068                        _edata = .
@@ -3133,7 +3138,7 @@ LOAD /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/
                 [!provide]                        PROVIDE (__data_source_end = __tdata_source_end)
                 [!provide]                        PROVIDE (__data_source_size = (__data_source_end - __data_source))
 
-.tbss           0x20000068        0x0 load address 0x0800b660
+.tbss           0x20000068        0x0 load address 0x0800b65c
                 0x20000068                        _sbss = .
                 0x20000068                        __bss_start__ = _sbss
  *(.tbss .tbss.*)
@@ -3150,7 +3155,7 @@ LOAD /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/
                 [!provide]                        PROVIDE (__arm32_tls_tcb_offset = MAX (0x8, __tls_align))
                 [!provide]                        PROVIDE (__arm64_tls_tcb_offset = MAX (0x10, __tls_align))
 
-.bss            0x20000068      0x1f8 load address 0x0800b660
+.bss            0x20000068      0x1f8 load address 0x0800b65c
  *(.bss)
  .bss           0x20000068       0x1c /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
  *(.bss*)
@@ -3190,7 +3195,7 @@ LOAD /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/
                 [!provide]                        PROVIDE (__bss_size = (__bss_end - __bss_start))
 
 ._user_heap_stack
-                0x20000260      0x600 load address 0x0800b660
+                0x20000260      0x600 load address 0x0800b65c
                 0x20000260                        . = ALIGN (0x8)
                 [!provide]                        PROVIDE (end = .)
                 0x20000260                        PROVIDE (_end = .)

@@ -36,7 +36,7 @@ rule C_COMPILER__SimpleApp_unscanned_Debug
 
 rule C_EXECUTABLE_LINKER__SimpleApp_Debug
   command = $PRE_LINK && /home/stage/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/arm-none-eabi-gcc $FLAGS $LINK_FLAGS $in -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
-  description = Linking C executable $TARGET_FILE
+  description = Linking C executable $TARGET_FILE; Generating .bin file
   restat = $RESTAT
 
 

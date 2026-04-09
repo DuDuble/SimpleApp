@@ -56,8 +56,12 @@ ENTRY(Reset_Handler)
 MEMORY
 {
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 320K
-FLASH (rx)      : ORIGIN = 0x8008000, LENGTH = 64K
+FLASH (rx)      : ORIGIN = 0x8008000, LENGTH = 72K
+HEADER (rw)     : ORIGIN = 0x801A000, LENGTH = 512 
 }
+
+
+
 
 /* Highest address of the user mode stack */
 _estack = ORIGIN(RAM) + LENGTH(RAM);    /* end of RAM */
@@ -70,6 +74,7 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 SECTIONS
 {
   /* The startup code goes first into FLASH */
+
   .isr_vector :
   {
     . = ALIGN(4);
@@ -164,6 +169,15 @@ SECTIONS
     . = ALIGN(4);
   } >RAM AT> FLASH
 
+  
+  _fsize = LENGTH(FLASH); 
+
+  .fw_header :
+  {
+    LONG(_fsize);
+    . = . + 32; 
+  } > HEADER
+
  /* Initialized TLS data section */
   .tdata : ALIGN(4)
   {
@@ -237,6 +251,7 @@ SECTIONS
     . = ALIGN(8);
   } >RAM
 
+ 
 
 
   /* Remove information from the standard libraries */

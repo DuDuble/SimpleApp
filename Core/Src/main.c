@@ -115,7 +115,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  printf("App Running :):) \r\n");
+  printf("App Running  :::::: \r\n");
   HAL_Delay(100);
   while (1)
   {
