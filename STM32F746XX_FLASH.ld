@@ -56,8 +56,8 @@ ENTRY(Reset_Handler)
 MEMORY
 {
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 320K
-HEADER (rw)     : ORIGIN = 0x8008000, LENGTH = 512 
-FLASH (rx)      : ORIGIN = 0x8008200, LENGTH = 72K
+HEADER (rw)     : ORIGIN = 0x8018000, LENGTH = 512 
+FLASH (rx)      : ORIGIN = 0x8018200, LENGTH = 72K
 }
 
 
@@ -175,7 +175,7 @@ SECTIONS
   .fw_header :
   {
     LONG(_fsize);
-    . = . + 32; 
+    . = . + 400; 
   } > HEADER
 
  /* Initialized TLS data section */

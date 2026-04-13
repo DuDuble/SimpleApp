@@ -52,6 +52,7 @@ add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
     COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/hash.py 
         $<TARGET_FILE:${CMAKE_PROJECT_NAME}>
         ${CMAKE_PROJECT_NAME}.bin
+        ${CMAKE_CURRENT_SOURCE_DIR}/Keys/private_key.pem
     
 )
 
