@@ -54,9 +54,7 @@ with open(ELF_FILE, 'rb') as f:
 raw = bytearray(raw)
 bin_size_bytes = bin_size.to_bytes(4,'little')
 
-current_index = 0
-
-current_index = 0
+current_index = 4
 
 for b in bin_size_bytes:
     raw[current_index] = b

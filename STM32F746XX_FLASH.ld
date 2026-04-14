@@ -56,8 +56,8 @@ ENTRY(Reset_Handler)
 MEMORY
 {
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 320K
-HEADER (rw)     : ORIGIN = 0x8018000, LENGTH = 512 
-FLASH (rx)      : ORIGIN = 0x8018200, LENGTH = 72K
+HEADER (rw)     : ORIGIN = 0x8020000, LENGTH = 512 
+FLASH (rx)      : ORIGIN = 0x8020200, LENGTH = 72K
 }
 
 
@@ -171,9 +171,11 @@ SECTIONS
 
   
   _fsize = LENGTH(FLASH); 
+  _version = 1;
 
   .fw_header :
   {
+    LONG(_version);
     LONG(_fsize);
     . = . + 400; 
   } > HEADER
