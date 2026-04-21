@@ -30,6 +30,26 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
+#define STRUCT_PACKED struct __attribute__((__packed__))
+
+STRUCT_PACKED image_version {
+    uint8_t iv_major;
+    uint8_t iv_minor;
+    uint16_t iv_revision;
+    uint32_t iv_build_num;
+};
+
+
+STRUCT_PACKED image_header {
+    uint32_t ih_magic;
+    uint32_t ih_load_addr;
+    uint16_t ih_hdr_size;               /* Size of image header (bytes). */
+    uint16_t ih_protect_tlv_size;       /* Size of protected TLV area (bytes). */
+    uint32_t ih_img_size;               /* Does not include header. */
+    uint32_t ih_flags;                  /* IMAGE_F_[...]. */
+    struct image_version ih_ver;
+    uint32_t _pad1;
+};
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -45,6 +65,22 @@
 /* Private variables ---------------------------------------------------------*/
 
 UART_HandleTypeDef huart3;
+
+__attribute__((section("my_header"))) struct image_header header = {
+    .ih_magic = 0x96f3b83d,
+    .ih_load_addr = 0, // usata solo se l'immagine vine caricata in RAM
+    .ih_hdr_size = 512, 
+    .ih_protect_tlv_size = 0, // non è lo stesso tlv che è presente alla fine dell'immagine 
+    .ih_img_size = 0x12000,
+    .ih_flags = 0,
+    .ih_ver = {
+      .iv_major = 1,
+      .iv_minor = 1,
+      .iv_revision = 0,
+      .iv_build_num = 0
+    },
+
+};
 
 /* USER CODE BEGIN PV */
 
@@ -84,7 +120,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+  printf("RUNNING \r\n");
   /* USER CODE END 1 */
 
   /* MPU Configuration--------------------------------------------------------*/
@@ -115,12 +151,13 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  printf("App Running  :>>>>> \r\n");
+  printf("App Running Non bene  \r\n");
   HAL_Delay(100);
   while (1)
   {
     /* USER CODE END WHILE */
-
+    HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);
+    HAL_Delay(500);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -217,7 +254,14 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
   /* USER CODE END MX_GPIO_Init_2 */
 }
 

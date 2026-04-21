@@ -36,15 +36,15 @@ add_executable(${CMAKE_PROJECT_NAME})
 
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
    COMMAND ${CMAKE_OBJCOPY} -O binary
-        --gap-fill 0xFF 
-        --pad-to 0x0801A000 
-        --only-section=.isr_vector 
-        --only-section=.text 
-        --only-section=.rodata 
-        --only-section=.ARM 
-        --only-section=.init_array 
-        --only-section=.fini_array 
-        --only-section=.data
+        # --gap-fill 0xFF 
+        # --pad-to 0x0801A000 
+        # --only-section=.isr_vector 
+        # --only-section=.text 
+        # --only-section=.rodata 
+        # --only-section=.ARM 
+        # --only-section=.init_array 
+        # --only-section=.fini_array 
+        # --only-section=.data
         $<TARGET_FILE:${CMAKE_PROJECT_NAME}>
         ${CMAKE_PROJECT_NAME}.bin
     COMMENT "Generating .bin file"
@@ -71,7 +71,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined include paths
+   
 )
 
 # Add project symbols (macros)

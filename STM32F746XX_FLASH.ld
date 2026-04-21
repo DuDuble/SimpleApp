@@ -56,7 +56,6 @@ ENTRY(Reset_Handler)
 MEMORY
 {
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 320K
-HEADER (rw)     : ORIGIN = 0x8020000, LENGTH = 512 
 FLASH (rx)      : ORIGIN = 0x8020200, LENGTH = 72K
 }
 
@@ -70,11 +69,13 @@ _sstack = _estack - _Min_Stack_Size;
 _Min_Heap_Size = 0x200;      /* required amount of heap  */
 _Min_Stack_Size = 0x400; /* required amount of stack */
 
+/* __image_start__ = ORIGIN(FLASH) + 0x200; */
 /* Define output sections */
 SECTIONS
 {
   /* The startup code goes first into FLASH */
-
+  /* . = __image_start__; */
+  
   .isr_vector :
   {
     . = ALIGN(4);
@@ -170,15 +171,21 @@ SECTIONS
   } >RAM AT> FLASH
 
   
-  _fsize = LENGTH(FLASH); 
+  /* _fsize = LENGTH(FLASH); 
   _version = 1;
 
   .fw_header :
   {
+   
     LONG(_version);
     LONG(_fsize);
     . = . + 400; 
   } > HEADER
+
+  .fw_tlv :
+  {
+    . = . + 400;
+  } > TLV */
 
  /* Initialized TLS data section */
   .tdata : ALIGN(4)

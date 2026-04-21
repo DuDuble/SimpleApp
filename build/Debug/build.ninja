@@ -123,7 +123,7 @@ build SimpleApp.elf: C_EXECUTABLE_LINKER__SimpleApp_Debug cmake/stm32cubemx/CMak
   LINK_FLAGS = -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -mfloat-abi=hard  -T "/home/stage/Desktop/SimpleApp/STM32F746XX_FLASH.ld" --specs=nano.specs -Wl,-Map=SimpleApp.map -Wl,--gc-sections -Wl,--print-memory-usage
   LINK_LIBRARIES = -lm
   OBJECT_DIR = CMakeFiles/SimpleApp.dir
-  POST_BUILD = cd /home/stage/Desktop/SimpleApp/build/Debug && arm-none-eabi-objcopy -O binary --gap-fill 0xFF --pad-to 0x0801A000 --only-section=.isr_vector --only-section=.text --only-section=.rodata --only-section=.ARM --only-section=.init_array --only-section=.fini_array --only-section=.data /home/stage/Desktop/SimpleApp/build/Debug/SimpleApp.elf SimpleApp.bin && python3 /home/stage/Desktop/SimpleApp/hash.py /home/stage/Desktop/SimpleApp/build/Debug/SimpleApp.elf SimpleApp.bin /home/stage/Desktop/SimpleApp/Keys/private_key.pem
+  POST_BUILD = cd /home/stage/Desktop/SimpleApp/build/Debug && arm-none-eabi-objcopy -O binary /home/stage/Desktop/SimpleApp/build/Debug/SimpleApp.elf SimpleApp.bin && python3 /home/stage/Desktop/SimpleApp/hash.py /home/stage/Desktop/SimpleApp/build/Debug/SimpleApp.elf SimpleApp.bin /home/stage/Desktop/SimpleApp/Keys/private_key.pem
   PRE_LINK = :
   TARGET_FILE = SimpleApp.elf
   TARGET_PDB = SimpleApp.elf.dbg

@@ -1,77 +1,101 @@
-from elftools.elf.elffile import ELFFile
-from elftools.elf.sections import Section
-from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.asymmetric import padding
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.asymmetric import utils
+# from elftools.elf.elffile import ELFFile
+# from elftools.elf.sections import Section
+# from cryptography.hazmat.primitives import serialization
+# from cryptography.hazmat.primitives.asymmetric import padding
+# from cryptography.hazmat.primitives import hashes
+# from cryptography.hazmat.primitives.asymmetric import utils
 import sys
 import hashlib
 import os
-
+import subprocess
 
 ELF_FILE = sys.argv[1]
 BIN_FILE = sys.argv[2]
 PRIV_KEY = sys.argv[3]
-HASH_OFFSET = 8      # offset nell'header
-HASH_LEN = 32        # lunghezza SHA256
-HEADER_SECTION = '.fw_header'  # sezione ELF header
 
-bin_size = os.path.getsize(BIN_FILE)
+base = os.path.dirname(os.path.abspath(__file__))
 
-with open(BIN_FILE, 'rb') as b:   
-    sha256 = hashlib.sha256(b.read()).digest()
+imgtool = os.path.join(base, "venv/bin/imgtool")
 
-# Key Loading 
+print("imgtool path:", imgtool)
+print("exists:", os.path.exists(imgtool))
 
-with open(PRIV_KEY,'rb') as k:
-    private_key = serialization.load_pem_private_key(
-        k.read(),
-        password=None
-    )
-
-#print(private_key)
-
-# RSA 
-sig = private_key.sign(
-    sha256,
-    padding.PKCS1v15(),
-    utils.Prehashed(hashes.SHA256())
+subprocess.run(
+    [
+        imgtool,"sign",
+        "--pad-header",
+        "--key", PRIV_KEY,
+        "--align", "4",
+        "--version","1.0.0",
+        "--header-size", "0x200",
+        "--slot-size", "0x12000",
+        BIN_FILE,
+        "signed_app.bin"
+    ]
 )
+# HASH_OFFSET = 8      # offset nell'header
+# HASH_LEN = 32        # lunghezza SHA256
+# HEADER_SECTION = '.fw_header'  # sezione ELF header
 
-print(sig)
+# bin_size = os.path.getsize(BIN_FILE)
 
- # ensuring files or connections close safely even if errors occur
-with open(ELF_FILE, 'rb') as f:
-    elf = ELFFile(f)
-    section = elf.get_section_by_name('.fw_header')
+# with open(BIN_FILE, 'rb') as b:   
+#     sha256 = hashlib.sha256(b.read()).digest()
 
-    # mi dice dove cominciano i dati 
-    offset = section['sh_offset']
-    size = section['sh_size']
-    f.seek(offset)
-    raw = f.read(size)
+# # Key Loading 
 
-raw = bytearray(raw)
-bin_size_bytes = bin_size.to_bytes(4,'little')
+# with open(PRIV_KEY,'rb') as k:
+#     private_key = serialization.load_pem_private_key(
+#         k.read(),
+#         password=None
+#     )
 
-current_index = 4
+# #print(private_key)
 
-for b in bin_size_bytes:
-    raw[current_index] = b
-    current_index += 1
+# # RSA 
+# sig = private_key.sign(
+#     sha256,
+#     padding.PSS(  # V2.1 Padding (PSS)
+#         mgf=padding.MGF1(hashes.SHA256()),  # Mask Generation Function
+#         salt_length=padding.PSS.MAX_LENGTH  # Lunghezza del sale (può essere configurata)
+#     ),
+#     utils.Prehashed(hashes.SHA256())
+# )
 
-for b in sha256:
-    raw[current_index] = b
-    current_index += 1
+# print(sig)
 
-for b in sig:
-    raw[current_index] = b
-    current_index += 1
+#  # ensuring files or connections close safely even if errors occur
+# with open(ELF_FILE, 'rb') as f:
+#     elf = ELFFile(f)
+#     section = elf.get_section_by_name('.fw_header')
 
-print(len(sig))
+#     # mi dice dove cominciano i dati 
+#     offset = section['sh_offset']
+#     size = section['sh_size']
+#     f.seek(offset)
+#     raw = f.read(size)
+
+# raw = bytearray(raw)
+# bin_size_bytes = bin_size.to_bytes(4,'little')
+
+# current_index = 4
+
+# for b in bin_size_bytes:
+#     raw[current_index] = b
+#     current_index += 1
+
+# for b in sha256:
+#     raw[current_index] = b
+#     current_index += 1
+
+# for b in sig:
+#     raw[current_index] = b
+#     current_index += 1
+
+# print(len(sig))
 
 
-with open(ELF_FILE, 'r+b') as f:
-    f.seek(offset)
-    f.write(raw)
+# with open(ELF_FILE, 'r+b') as f:
+#     f.seek(offset)
+#     f.write(raw)
 
