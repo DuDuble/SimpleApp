@@ -53,7 +53,7 @@ add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
         $<TARGET_FILE:${CMAKE_PROJECT_NAME}>
         ${CMAKE_PROJECT_NAME}.bin
         ${CMAKE_CURRENT_SOURCE_DIR}/Keys/private_key.pem
-    
+        ${CMAKE_CURRENT_SOURCE_DIR}/Keys/enc_pub.pem
 )
 
 # Add STM32CubeMX generated sources

@@ -150,7 +150,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  printf("Applicazione 1 \r\n");
+  printf("APP  ----  1 \r\n");
   HAL_Delay(100);
   while (1)
   {

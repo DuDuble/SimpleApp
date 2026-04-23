@@ -12,6 +12,7 @@ import subprocess
 ELF_FILE = sys.argv[1]
 BIN_FILE = sys.argv[2]
 PRIV_KEY = sys.argv[3]
+ENC_KEY = sys.argv[4]
 
 base = os.path.dirname(os.path.abspath(__file__))
 
@@ -22,11 +23,13 @@ print("exists:", os.path.exists(imgtool))
 
 subprocess.run(
     [
-        imgtool,"sign",
+        imgtool,  "create",
         "--pad-header",
         "--key", PRIV_KEY,
+        # "--encrypt", ENC_KEY,
+        # "--encrypt-keylen", "128",
         "--align", "4",
-        "--version","1.0.0",
+        "--version", "1.0.0",
         "--header-size", "0x200",
         "--slot-size", "0x12000",
         BIN_FILE,
