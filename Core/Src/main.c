@@ -120,7 +120,6 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-  printf("RUNNING \r\n");
   /* USER CODE END 1 */
 
   /* MPU Configuration--------------------------------------------------------*/
@@ -151,13 +150,12 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  printf("App Running Non bene  \r\n");
+  printf("Applicazione 1 \r\n");
   HAL_Delay(100);
   while (1)
   {
     /* USER CODE END WHILE */
-    HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);
-    HAL_Delay(500);
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
